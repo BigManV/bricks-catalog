@@ -1,0 +1,126 @@
+:root {
+  --lego-red: #e3000b;
+  --lego-blue: #0055bf;
+  --lego-yellow: #f2cd37;
+  --lego-green: #237841;
+  --lego-white: #f4f4f4;
+  --lego-dark: #2a2a2a;
+  
+  --bg-color: #f0f4f8;
+  --card-bg: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  
+  font-family: 'Outfit', 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('/bg-lego.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Lego-style Button */
+.btn-lego {
+  background-color: var(--lego-red);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.3);
+  transition: all 0.1s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-lego:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.3);
+  background-color: #d1000a;
+}
+
+.btn-lego:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 rgba(0,0,0,0.2);
+}
+
+.btn-lego-blue {
+  background-color: var(--lego-blue);
+}
+
+.btn-lego-blue:hover {
+  background-color: #00459c;
+}
+
+.btn-lego-yellow {
+  background-color: var(--lego-yellow);
+  color: var(--lego-dark);
+}
+
+.btn-lego-yellow:hover {
+  background-color: #e0bc30;
+}
+
+/* Utility classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+/* Animations */
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pop-in {
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--lego-blue); 
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00459c; 
+}
