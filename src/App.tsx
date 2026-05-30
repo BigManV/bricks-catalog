@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Search, Filter, X, Package, Blocks, Tag, ShoppingCart } from 'lucide-react';
+import { Search, X, Package, Blocks, Tag } from 'lucide-react';
 import { parseCSV } from './utils/csvParser';
 import type { Product } from './types';
 
@@ -29,11 +29,6 @@ function App() {
     };
     loadProducts();
   }, []);
-
-  const categories = useMemo(() => {
-    const cats = new Set(products.map(p => p.category));
-    return ['All', ...Array.from(cats)].sort();
-  }, [products]);
 
   const categories = useMemo(() => {
     const cats = new Set(products.map(p => p.category));
