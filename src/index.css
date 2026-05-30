@@ -30,6 +30,12 @@ body {
   padding: 0;
   min-height: 100vh;
   position: relative;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><rect x='4' y='14' width='24' height='16' fill='%23E3000B' rx='2' ry='2'/><rect x='7' y='8' width='6' height='6' fill='%23E3000B' rx='1' ry='1'/><rect x='19' y='8' width='6' height='6' fill='%23E3000B' rx='1' ry='1'/></svg>") 4 4, auto;
+}
+
+/* Ensure cursor applies to interactive elements too */
+a, button, select, input, [role="button"] {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><rect x='4' y='14' width='24' height='16' fill='%23F2CD37' rx='2' ry='2'/><rect x='7' y='8' width='6' height='6' fill='%23F2CD37' rx='1' ry='1'/><rect x='19' y='8' width='6' height='6' fill='%23F2CD37' rx='1' ry='1'/></svg>") 4 4, pointer !important;
 }
 
 body::before {
@@ -41,6 +47,60 @@ body::before {
   background-position: center;
   opacity: 0.15;
   z-index: -1;
+}
+
+/* Layout & Responsiveness */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 280px;
+  padding: 20px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 90px;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.modal-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .main-layout {
+    flex-direction: column;
+    padding: 10px;
+  }
+  .sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 20px;
+  }
+  .modal-content-wrapper {
+    flex-direction: column;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -70,12 +70,10 @@ function App() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
-      <header style={{ 
+      <header className="header-container" style={{ 
         backgroundColor: 'var(--lego-red)', 
         color: 'white', 
         padding: '15px 30px',
-        display: 'flex',
-        alignItems: 'center',
         position: 'sticky',
         top: 0,
         zIndex: 10,
@@ -88,7 +86,7 @@ function App() {
         </div>
         
         {/* Center: Search */}
-        <div style={{ display: 'flex', justifyContent: 'center', flex: 2 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flex: 2, width: '100%' }}>
           <div style={{ position: 'relative', width: '100%', maxWidth: '600px' }}>
             <input 
               type="text" 
@@ -110,22 +108,15 @@ function App() {
           </div>
         </div>
 
-        {/* Right Side: Empty to balance flex layout */}
-        <div style={{ flex: 1 }}></div>
+        {/* Right Side: Empty to balance flex layout - Hidden on small screens */}
+        <div style={{ flex: 1 }} className="desktop-only"></div>
       </header>
 
       {/* Main Content */}
-      <div style={{ display: 'flex', flex: 1, padding: '20px', gap: '20px', maxWidth: '1400px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      <div className="main-layout">
         
         {/* Sidebar (Filters) */}
-        <aside className="glass-panel" style={{ 
-          width: '280px', 
-          padding: '20px',
-          flexShrink: 0,
-          position: 'sticky',
-          top: '90px',
-          height: 'fit-content'
-        }}>
+        <aside className="glass-panel sidebar">
           <div>
             <h2 style={{ borderBottom: '3px solid var(--lego-blue)', paddingBottom: '10px', marginBottom: '20px' }}>Filters</h2>
             
@@ -209,7 +200,10 @@ function App() {
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
             gap: '20px' 
           }}>
-            {filteredProducts.map(product => (
+            {filteredProducts.map((product, index) => {
+              const cardColors = ['var(--lego-red)', 'var(--lego-blue)', 'var(--lego-yellow)', 'var(--lego-green)', '#FF8C00'];
+              const cardColor = cardColors[index % cardColors.length];
+              return (
               <div 
                 key={product.id}
                 className="glass-panel"
@@ -221,9 +215,11 @@ function App() {
                   display: 'flex',
                   flexDirection: 'column',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  borderTop: `5px solid ${cardColor}`,
+                  borderBottom: `5px solid ${cardColor}`
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.15)'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = `0 12px 40px ${cardColor}44`; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)'; }}
               >
                 <div style={{ 
@@ -271,7 +267,7 @@ function App() {
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
             
             {filteredProducts.length === 0 && (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '50px', color: '#666' }}>
@@ -318,7 +314,7 @@ function App() {
               <X size={28} color="#333" />
             </button>
             
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div className="modal-content-wrapper">
               {/* Image Gallery Side */}
               <div style={{ flex: '1 1 400px', backgroundColor: '#f9f9f9', padding: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <img 
