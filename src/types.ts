@@ -9,4 +9,5 @@ export interface Product {
   imageLinks: string[];
   pieces: string;
   status: string;
+  setNumber?: string;
 }

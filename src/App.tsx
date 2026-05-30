@@ -43,7 +43,8 @@ function App() {
   const filteredProducts = useMemo(() => {
     return products.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            product.sku.toLowerCase().includes(searchQuery.toLowerCase());
+                            product.sku.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                            (product.setNumber && product.setNumber.includes(searchQuery.trim()));
       const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
       
       const price = product.discountedPrice || product.price;

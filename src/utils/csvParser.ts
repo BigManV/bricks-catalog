@@ -46,17 +46,30 @@ export const parseCSV = async (url: string): Promise<Product[]> => {
             finalDiscountedPrice = Math.max(0, originalPrice - 100);
           }
 
+          const name = row['Product Name*'] || 'Unknown Product';
+          const sku = row['Variant SKU Code'] || '';
+          
+          let setNumber = '';
+          const nameMatch = name.match(/\((\d{4,6})\)/) || name.match(/\b(\d{4,6})\b/);
+          if (nameMatch) {
+            setNumber = nameMatch[1];
+          } else {
+            const skuMatch = sku.match(/\b(\d{4,6})\b/);
+            if (skuMatch) setNumber = skuMatch[1];
+          }
+
           return {
-            id: row['Variant SKU Code'] || `prod-${index}`,
-            name: row['Product Name*'] || 'Unknown Product',
+            id: sku || `prod-${index}`,
+            name: name,
             category: category,
             description: description,
             price: finalPrice,
             discountedPrice: finalDiscountedPrice,
-            sku: row['Variant SKU Code'] || '',
+            sku: sku,
             imageLinks: imageLinks,
             pieces: pieces,
-            status: status
+            status: status,
+            setNumber: setNumber
           };
         });
         
