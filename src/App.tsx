@@ -41,7 +41,7 @@ function App() {
   }, [products]);
 
   const filteredProducts = useMemo(() => {
-    return products.filter(product => {
+    const filtered = products.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                             product.sku.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             (product.setNumber && product.setNumber.includes(searchQuery.trim()));
@@ -52,6 +52,17 @@ function App() {
       const matchesMaxPrice = maxPrice === '' || price <= Number(maxPrice);
       
       return matchesSearch && matchesCategory && matchesMinPrice && matchesMaxPrice;
+    });
+
+    return filtered.sort((a, b) => {
+      const getPriority = (product: Product) => {
+        const nameLower = product.name.toLowerCase();
+        if (product.category === 'Technic' && (nameLower.includes('f1') || nameLower.includes('formula 1'))) return 2;
+        if (product.category === 'Stranger Things' || nameLower.includes('stranger things')) return 1;
+        return 0;
+      };
+      
+      return getPriority(b) - getPriority(a);
     });
   }, [products, searchQuery, selectedCategory, minPrice, maxPrice]);
 
